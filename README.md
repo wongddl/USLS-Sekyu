@@ -1,5 +1,5 @@
 # USLS-Sekyu
-A Dedicated multi-purpose bot for the Rektikano Esports League discord Server.
+A custom multipurpose bot for the Rektikano Esports League Discord Server.
 This bot was coded mainly with python (discordpy). 
 
 # Functionalities
