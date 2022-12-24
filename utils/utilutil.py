@@ -2,7 +2,7 @@ from sendgrid.helpers.mail import HtmlContent, Mail
 import openai
 from utils import gsheets,utilhtml
 
-openai.api_key = "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"
+openai.api_key = "{openai_key}"
 
 def emailmessage(message_content,random_code):
     emailmessage = Mail(
