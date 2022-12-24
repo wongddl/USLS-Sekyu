@@ -4,13 +4,14 @@ This bot was coded mainly with python (discordpy).
 
 ## Functionalities
 #### Email Verification
-This is for security purpose and confirm that an email address is valid and belongs to the student from USLS (rektikano). When valid, user is granted access to the server through a role.
+###### This is for security purpose and confirm that an email address is valid and belongs to the student from USLS (rektikano). When valid, user is granted access to the server through a role.
 #### Music
-Plays music requested from YOOTOOB.
+###### Plays music requested from YOOTOOB.
 #### Games
-Play `battleship` or `gobblet` with friends on the server.
+###### Play `battleship` or `gobblet` with friends on the server.
 ## Commands
-Below are the commands run by USLS Sekyu within the `Rektikano Esports League` discord server.
+###### Below are the commands run by USLS Sekyu within the `Rektikano Esports League` discord server.
+
 #### 🎵 Music Commands 🎵
 
 `~!join/j/J` - Join the vc that the current user is in  
