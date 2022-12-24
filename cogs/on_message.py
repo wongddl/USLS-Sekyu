@@ -4,7 +4,7 @@ from discord.utils import get
 from sendgrid import SendGridAPIClient
 import random
 
-from utils import embeds,gsheets,config,utilsendgrid
+from utils import embeds,gsheets,config,utilutil
 
 
 
@@ -33,7 +33,7 @@ class OnMessage(commands.Cog):
                             gsheets.update_code(datanum,random_code)
                             try:
                                 sg = SendGridAPIClient(gsheets.SENDGRID_API_KEY)
-                                response = sg.send(utilsendgrid.emailmessage(message_content,random_code))
+                                response = sg.send(utilutil.emailmessage(message_content,random_code))
                                 print('VERIFICATION CODE SENT')
                                 await message.channel.send(embed=embeds.embed_message()[4],view = embeds.embed_sent_button())
                                 await message.channel.send(embed=embeds.embed_message()[2],delete_after=30)

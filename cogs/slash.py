@@ -2,7 +2,7 @@ from discord.ext import commands
 import discord
 from utils import mybuttons
 from utils.bot import Bot
-from utils import gsheets,config
+from utils import gsheets,config,utilutil
 from discord.ui import Button
 bot=Bot()
 
@@ -23,6 +23,7 @@ class Slash(commands.Cog):
         em.add_field(name=f"`{prefix}leave`", value="Leave the vc that the current user is in")
         em.add_field(name=f"`{prefix}play`", value="Play a song, given either a url or a search term")
         em.add_field(name=f"`{prefix}pause`", value="Pauses current song")
+        #em.add_field(name=f"{prefix}Loop", value = "Loops through the current or next song until disabled.")
         em.add_field(name=f"`{prefix}skip`", value="Skips current song")
         em.add_field(name=f"`{prefix}stop`", value="Stops playing and clears queue")
         em.add_field(name=f"`{prefix}clearqueue`", value="Clears the queue")
@@ -32,7 +33,12 @@ class Slash(commands.Cog):
         em.add_field(name=f"`{prefix}battleship @tag`", value="Tag someone to play battleship with")
         em.add_field(name=f"`{prefix}gobblet @tag`", value="Tag someone to play gobblet with")
         em.add_field(name=f"`.`", value=".")
-
+        em.add_field(name=f"‎", value="**=================== 📎 APP COMMANDS 📎 ==================**", inline=False)
+        em.add_field(name=f"`{prefix}generate`", value="Generate a DALL-E 2 image")
+        em.add_field(name=f"`{prefix}asksekyu`", value="Ask USLS Sekyu a question")
+        em.add_field(name=f"`.`", value=".")
+        #em.add_field(name=f"{prefix}Info", value="Shows bot info")
+        #em.add_field(name=f"{prefix}Clear", value="Clears the channel by either a certain number of messages, or left blank, the whole channel")
 
         await interaction.response.send_message(embed = em, ephemeral= True)
 
@@ -51,6 +57,38 @@ class Slash(commands.Cog):
         await interaction.response.send_message(f'Rektikano Freedom Wall Message #{anonnum} was sent',ephemeral=True)
         message = await channel.send(embed=embedded_msg)
         await message.add_reaction('💚')
+
+    @bot.tree.command(name="generate",description = "Generate a DALL-E 2 image",)
+    async def generate(self,interaction: discord.Integration, describe:str):
+        embedded_msg = discord.Embed(title=f'{describe}',description='generating image . . .')
+        await interaction.response.send_message(embed=embedded_msg)
+        image_url = utilutil.generate_image_with_openai(describe)
+        embedded_msg = discord.Embed(title=f'{describe}')
+        embedded_msg.set_image(url=f'{image_url}')
+        embedded_msg.set_footer(text='generate images using: "/generate"')
+        await interaction.edit_original_response(embed=embedded_msg)
+
+    @bot.tree.command(name="asksekyu",description = "Ask USLS Sekyu a question",)
+    async def askgpt(self,interaction: discord.Integration, describe:str):
+        embedded_msg = discord.Embed(title=f'{describe}',description='generating text . . .')
+        await interaction.response.send_message(embed=embedded_msg)
+        response = utilutil.generate_text_with_openai(describe)
+        embedded_msg = discord.Embed(title=f'{describe}', description=f'{response}')
+        embedded_msg.set_footer(text='ask questions using: "/asksekyu"')
+        await interaction.edit_original_response(embed=embedded_msg)
+
+
+    # @bot.tree.command(name='verifytest')
+    # async def verifytest(self, interaction: discord.Interaction):
+    #     await interaction.response.send_message(view=mybuttons.Verify())
+    
+    # @bot.tree.command(name='guidelinestest')
+    # async def guidelinestest(self, interaction: discord.Interaction):
+    #     link = Button(label="Need Help❔", url='https://discord.com/channels/758702859717312592/1024625154086682686', style=discord.ButtonStyle.link)
+    #     view = mybuttons.Guidelines()
+    #     view.add_item(link)
+    #     await interaction.response.send_message(view=view)
+
 
 async def setup(bot):
     bot.add_view(mybuttons.Verify(),message_id=config.verify_button)
